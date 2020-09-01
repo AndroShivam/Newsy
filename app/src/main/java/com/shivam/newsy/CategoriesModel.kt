@@ -1,19 +1,13 @@
 package com.shivam.newsy
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.shivam.newsy.databinding.FragmentCategoriesBinding
-import kotlinx.android.synthetic.main.fragment_home.*
 
+object CategoriesModel {
 
-class CategoriesFragment : Fragment() {
+//     arts, automobiles, books, business, fashion, food, health, home, insider, magazine, movies, nyregion,
+//    obituaries, opinion, politics, realestate, science, sports, sundayreview, technology, theater,
+//    t-magazine, travel, upshot, us, and world.
 
-
-    private val categories = listOf(
+    private val categories: MutableList<Category> = mutableListOf(
         Category(R.mipmap.ic_launcher, R.string.arts),
         Category(R.mipmap.ic_launcher, R.string.automobiles),
         Category(R.mipmap.ic_launcher, R.string.books),
@@ -31,20 +25,11 @@ class CategoriesFragment : Fragment() {
         Category(R.mipmap.ic_launcher, R.string.travel),
         Category(R.mipmap.ic_launcher, R.string.us),
         Category(R.mipmap.ic_launcher, R.string.world)
+
     )
-
-    private lateinit var binding: FragmentCategoriesBinding
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.categoriesRecyclerview.adapter = CategoriesAdapter(categories)
-    }
 }
+
+data class Category(
+    val Image: Int,
+    val title: Int
+)

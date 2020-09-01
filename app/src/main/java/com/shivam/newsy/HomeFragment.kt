@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.shivam.newsy.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.layout_error.view.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ArticleAdapter.ArticleListener {
 
     private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
     private lateinit var binding: FragmentHomeBinding
@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
         initArticleList()
         viewModel.retry()
 
-        viewModel.result.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.result.observe(viewLifecycleOwner, { result ->
             when (result.status) {
                 Status.SUCCESS -> {
                     val articles = result.data?.articles
@@ -58,8 +58,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun initArticleList() {
-        adapter = ArticleAdapter()
+        adapter = ArticleAdapter(listener = this)
         binding.homeRecyclerview.adapter = adapter
+    }
+
+    override fun onArticleClickedListener(article: Article) {
+//        val action = HomeFragmentDirections.actionItemHomeToDetailFragment(article.url)
+//        findNavController().navigate(action)
+
+        val action = HomeFragmentDirections.actionItemHomeToDetailFragment(article)
+        findNavController().navigate(action)
+
     }
 }
 
