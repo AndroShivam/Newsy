@@ -13,27 +13,20 @@
     <string name="category_img">Category Image</string>
     <string name="retry">Retry</string>
 
-    <!-- arts, automobiles, books, business, fashion, food, health, home, insider, magazine, movies, nyregion,
-    obituaries, opinion, politics, realestate, science, sports, sundayreview, technology, theater,
-     t-magazine, travel, upshot, us, and world.-->
+    <string name="home">Home</string>
+    <string name="arts">Arts</string>
+    <string name="automobiles">Automobiles</string>
+    <string name="books">Books</string>
+    <string name="business">Business</string>
+    <string name="fashion">Fashion</string>
+    <string name="food">Food</string>
+    <string name="health">Health</string>
+    <string name="movies">Movies</string>
+    <string name="politics">Politics</string>
+    <string name="science">Science</string>
+    <string name="sports">Sports</string>
+    <string name="technology">Technology</string>
+    <string name="travel">Travel</string>
+    <string name="world">World</string>
 
-    <string name="home">home</string>
-    <string name="arts">arts</string>
-    <string name="automobiles">automobiles</string>
-    <string name="books">books</string>
-    <string name="business">business</string>
-    <string name="fashion">fashion</string>
-    <string name="food">food</string>
-    <string name="health">health</string>
-    <string name="movies">movies</string>
-    <string name="opinion">opinion</string>
-    <string name="politics">politics</string>
-    <string name="science">science</string>
-    <string name="sports">sports</string>
-    <string name="technology">technology</string>
-    <string name="travel">travel</string>
-    <string name="us">us</string>
-    <string name="world">world</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

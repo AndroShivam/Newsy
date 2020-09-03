@@ -26,3 +26,4 @@ fun ImageView.loadImage(url: String?) {
             .into(this)
     }
 }
+

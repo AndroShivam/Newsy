@@ -1,35 +1,55 @@
 package com.shivam.newsy
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.shivam.newsy.databinding.ArticleItemsBinding
+import com.shivam.newsy.databinding.CategoryItemsBinding
 import kotlinx.android.synthetic.main.category_items.view.*
 
-class CategoriesAdapter(private val list: List<Category>) :
-    RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
+class CategoriesAdapter(private val list: List<Category>, private val listener: CategoryListener) :
+    ListAdapter<Category, CategoriesAdapter.CategoriesViewHolder>(CategoryDiffUtil()) {
 
-    class CategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    interface CategoryListener {
+        fun onCategoryClicked(category: Category)
+    }
 
-        val categoryTitle = itemView.category_title
-
-        fun bind(categoriesTest: Category){
-            categoryTitle.text = categoriesTest.title.toString()
+    class CategoriesViewHolder(private val binding: CategoryItemsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Category, listener: CategoryListener) {
+            binding.apply {
+                category = item
+                categoryImg.setImageResource(item.Image)
+                root.setOnClickListener { listener.onCategoryClicked(item) }
+                executePendingBindings()
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
-
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.category_items, parent, false)
-
-        return CategoriesViewHolder(view)
+        val layoutInflater =
+            LayoutInflater.from(parent.context)
+        val binding = CategoryItemsBinding.inflate(layoutInflater, parent, false)
+        return CategoriesViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
-        val categoriesTest: Category = list[position]
-        holder.bind(categoriesTest)
+        val category = list[position]
+        holder.bind(category, listener)
     }
 
     override fun getItemCount(): Int = list.size
+}
+
+class CategoryDiffUtil : DiffUtil.ItemCallback<Category>() {
+    override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -5,46 +5,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.shivam.newsy.databinding.FragmentCategoriesBinding
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.shivam.newsy.CategoriesModel.categories
 
 
-class CategoriesFragment : Fragment() {
-
-
-    private val categories = listOf(
-        Category(R.mipmap.ic_launcher, R.string.arts),
-        Category(R.mipmap.ic_launcher, R.string.automobiles),
-        Category(R.mipmap.ic_launcher, R.string.books),
-        Category(R.mipmap.ic_launcher, R.string.business),
-        Category(R.mipmap.ic_launcher, R.string.fashion),
-        Category(R.mipmap.ic_launcher, R.string.food),
-        Category(R.mipmap.ic_launcher, R.string.health),
-        Category(R.mipmap.ic_launcher, R.string.home),
-        Category(R.mipmap.ic_launcher, R.string.movies),
-        Category(R.mipmap.ic_launcher, R.string.opinion),
-        Category(R.mipmap.ic_launcher, R.string.politics),
-        Category(R.mipmap.ic_launcher, R.string.science),
-        Category(R.mipmap.ic_launcher, R.string.sports),
-        Category(R.mipmap.ic_launcher, R.string.technology),
-        Category(R.mipmap.ic_launcher, R.string.travel),
-        Category(R.mipmap.ic_launcher, R.string.us),
-        Category(R.mipmap.ic_launcher, R.string.world)
-    )
+class CategoriesFragment : Fragment(),
+    CategoriesAdapter.CategoryListener {
 
     private lateinit var binding: FragmentCategoriesBinding
+    private lateinit var adapter: CategoriesAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = CategoriesAdapter(categories, this)
+        binding.categoriesRecyclerview.adapter = adapter
+    }
 
-        binding.categoriesRecyclerview.adapter = CategoriesAdapter(categories)
+
+    override fun onCategoryClicked(category: Category) {
+        Toast.makeText(context, category.title, Toast.LENGTH_LONG).show()
+        val action = CategoriesFragmentDirections.actionItemCategoriesToItemHome(category.title)
+        findNavController().navigate(action)
     }
 }
