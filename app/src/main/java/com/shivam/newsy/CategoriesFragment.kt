@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.shivam.newsy.databinding.FragmentCategoriesBinding
@@ -33,10 +32,14 @@ class CategoriesFragment : Fragment(),
         binding.categoriesRecyclerview.adapter = adapter
     }
 
-
     override fun onCategoryClicked(category: Category) {
-        Toast.makeText(context, category.title, Toast.LENGTH_LONG).show()
-        val action = CategoriesFragmentDirections.actionItemCategoriesToItemHome(category.title)
-        findNavController().navigate(action)
+        TODO("Not yet implemented")
     }
+
+
+//    override fun onCategoryClicked(category: Category) {
+//        Toast.makeText(context, category.title, Toast.LENGTH_LONG).show()
+//        val action = CategoriesFragmentDirections.actionItemCategoriesToItemHome(category.title)
+//        findNavController().navigate(action)
+//    }
 }

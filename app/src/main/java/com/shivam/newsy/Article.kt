@@ -1,7 +1,9 @@
 package com.shivam.newsy
 
+
 import com.squareup.moshi.Json
 import java.io.Serializable
+
 
 data class Article(
     @Json(name = "title")

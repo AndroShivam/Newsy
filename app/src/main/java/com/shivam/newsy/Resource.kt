@@ -6,7 +6,7 @@ data class Resource<out T>(val status: Status, val data: T?, val error: ErrorTyp
         fun <T> success(data: T?): Resource<T> = Resource(Status.SUCCESS, data, null)
         fun <T> error(msg: ErrorType, data: T?) = Resource(Status.ERROR, data, msg)
         fun <T> loading(data: T?) = Resource(Status.LOADING, data, null)
-    }
+}
 }
 
 enum class Status {

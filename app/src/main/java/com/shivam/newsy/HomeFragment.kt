@@ -2,14 +2,12 @@ package com.shivam.newsy
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.shivam.newsy.databinding.FragmentHomeBinding
@@ -22,31 +20,15 @@ class HomeFragment : Fragment(), ArticleAdapter.ArticleListener {
     private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: ArticleAdapter
-    private lateinit var args: HomeFragmentArgs
 
-
-    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        Log.i("HomeFragment", "On Create View")
-
-        if (!arguments?.isEmpty!!) {
-            args = arguments?.let { HomeFragmentArgs.fromBundle(it) }!!
-            viewModel.setCategory(resources.getString(args.categoryName).toLowerCase(Locale.ROOT))
-        } else {
-            viewModel.setCategory(resources.getString(R.string.home).toLowerCase(Locale.ROOT))
-        }
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log.i("HomeFragment", "On View Created")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,7 +36,7 @@ class HomeFragment : Fragment(), ArticleAdapter.ArticleListener {
         binding.viewModel = viewModel
         initArticleList()
 
-        Log.i("HomeFragment", "On Activity Created")
+        viewModel.setCategory(resources.getString(R.string.home).toLowerCase(Locale.ROOT))
 
         binding.layoutError.error_btn.setOnClickListener { viewModel.retry() }
 
@@ -83,10 +65,10 @@ class HomeFragment : Fragment(), ArticleAdapter.ArticleListener {
         binding.homeRecyclerview.adapter = adapter
     }
 
-    override fun onArticleClickedListener(article: Article) {
-        val action = HomeFragmentDirections.actionItemHomeToDetailFragment(article)
-        findNavController().navigate(action)
 
+    override fun onArticleClickedListener(article: Article) {
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(article)
+        findNavController().navigate(action)
     }
 }
 

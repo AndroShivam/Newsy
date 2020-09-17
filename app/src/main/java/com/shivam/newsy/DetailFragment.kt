@@ -10,11 +10,13 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.navArgs
 import com.shivam.newsy.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,7 +26,6 @@ class DetailFragment : Fragment() {
         val args = arguments?.let { DetailFragmentArgs.fromBundle(it) }
         binding.detailWebview.webViewClient = WebViewClient()
         binding.detailWebview.loadUrl(args?.article?.url)
-
 
         return binding.root
     }
