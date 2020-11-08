@@ -1,6 +1,5 @@
 package com.shivam.newsy
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
     private val articleRepository: ArticleRepository
-    private var selectedCategory: String = ""
     private var job: Job? = null
 
     private val _result = MutableLiveData<Resource<TopStories>>()
@@ -23,16 +21,11 @@ class HomeViewModel : ViewModel() {
         articleRepository = ArticleRepository(articleService)
     }
 
-    fun setCategory(category: String) {
-        selectedCategory = category
-        loadTopArticles()
-    }
-
     private fun loadTopArticles() {
         job?.cancel()
         job = viewModelScope.launch(Dispatchers.Main) {
             _result.value = Resource.loading(null)
-            _result.value = articleRepository.getTopArticles(selectedCategory)
+            _result.value = articleRepository.getTopArticles("home")
         }
     }
 
